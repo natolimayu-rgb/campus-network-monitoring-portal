@@ -32,7 +32,7 @@ The project demonstrates network segmentation, routing, firewall rules, HTTPS co
 ## 4. Project Structure
 
 ```text
-campus-network-portal/
+campus-network-monitoring-portal/
 ├── app/
 │   ├── Dockerfile
 │   ├── main.py
@@ -45,8 +45,10 @@ campus-network-portal/
 │   └── start-router.sh
 ├── scripts/
 │   └── health-check.sh
+├── .gitignore
 ├── docker-compose.yml
-└── README.md
+├── README.md
+└── USER_GUIDE.md
 ```
 
 The dataset CSV and TLS certificates are not included in this repository. Follow the setup instructions below.
@@ -88,11 +90,10 @@ Install the following before starting:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
-cd campus-network-portal
+git clone https://github.com/natolimayu-rgb/campus-network-monitoring-portal.git
+cd campus-network-monitoring-portal
 ```
 
-Replace `YOUR_GITHUB_REPOSITORY_URL` with the actual repository URL.
 
 ### Step 2: Create the Docker Networks
 
