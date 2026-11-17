@@ -1,0 +1,68 @@
+services:
+  api:
+    build: ./app
+    container_name: campus-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./certs:/certs:ro
+      - ./data:/app/data:ro
+      - ./app/import_flows.py:/app/import_flows.py:ro
+    command:
+      - uvicorn
+      - main:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+      - --ssl-certfile
+      - /certs/server.crt
+      - --ssl-keyfile
+      - /certs/server.key
+    networks:
+      campus-app:
+        ipv4_address: 10.10.2.10
+      campus-database:
+        ipv4_address: 10.10.3.10
+    depends_on:
+      - redis
+  redis:
+    image: redis:7-alpine
+    container_name: campus-redis
+    networks:
+      campus-database:
+        ipv4_address: 10.10.3.20
+    volumes:
+      - redis-data:/data
+  router:
+    build: ./router
+    container_name: campus-router
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      net.ipv4.ip_forward: "1"
+    networks:
+      campus-client:
+        ipv4_address: 10.10.1.254
+      campus-app:
+        ipv4_address: 10.10.2.254
+      campus-database:
+        ipv4_address: 10.10.3.254
+
+networks:
+  campus-client:
+    external: true
+    name: campus-client
+
+  campus-app:
+    external: true
+    name: campus-app
+
+  campus-database:
+    external: true
+    name: campus-database
+
+
+volumes:
+  redis-data:
+

@@ -1,0 +1,23 @@
+# Certificates and private keys
+certs/
+*.key
+*.pem
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python temporary files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Packet captures
+*.pcap
+*.pcapng
+
+# Backups
+*.backup
+*.pre-flows
